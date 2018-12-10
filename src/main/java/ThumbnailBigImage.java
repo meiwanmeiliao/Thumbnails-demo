@@ -68,7 +68,7 @@ public class ThumbnailBigImage {
      * @throws IOException IOException
      */
     private static ImageReader getPictureImageReader (String sourceImagePath) throws IOException {
-        Assert.isTrue(sourceImagePath == null || sourceImagePath.trim().length() == 0, "图片路径必须存在");
+        Assert.isTrue(sourceImagePath != null && sourceImagePath.trim().length() != 0, "图片路径必须存在");
         File srcFile = new File(sourceImagePath);
         Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName(FileUtil.getType(srcFile));
         ImageReader reader = (ImageReader) readers.next();
@@ -112,8 +112,8 @@ public class ThumbnailBigImage {
      */
     private static String thumbnail (String sourceImagePath, String targetImagePath, Double scale, Integer thumbnailWidth, Integer thumbnailHeight) throws IOException {
         Long startTime = System.currentTimeMillis();
-        Assert.isTrue(sourceImagePath == null || sourceImagePath.trim().length() == 0, "图片路径必须存在");
-        Assert.isTrue(targetImagePath == null || targetImagePath.trim().length() == 0, "目标路径必须存在");
+        Assert.isTrue(sourceImagePath != null && sourceImagePath.trim().length() != 0, "图片路径必须存在");
+        Assert.isTrue(targetImagePath != null && targetImagePath.trim().length() != 0, "目标路径必须存在");
         File srcFile = new File(sourceImagePath);
         ImageReader reader = getPictureImageReader(sourceImagePath);
         int width = getPictureWidth(reader);
@@ -157,7 +157,7 @@ public class ThumbnailBigImage {
         }
         ImageIO.write(bufferedImage, suffix, new File(targetImagePath));
         System.out.println(System.currentTimeMillis() - startTime);
-        return null;
+        return targetImagePath;
     }
 
     /**
@@ -215,5 +215,6 @@ public class ThumbnailBigImage {
         }
         return destImage;
     }
+
 
 }
